@@ -143,8 +143,8 @@ func (h *userHandler) UploadAvatar(c *gin.Context) {
 		return
 	}
 
-	// dapetin dari jwt
-	userId := 12
+	currentUser := c.MustGet("currentUser").(user.User)
+	userId := currentUser.ID
 	path := fmt.Sprintf("images/%d-%s", userId, file.Filename)
 
 	err = c.SaveUploadedFile(file, path)
